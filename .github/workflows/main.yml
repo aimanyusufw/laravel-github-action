@@ -1,0 +1,23 @@
+name: Deploy Laravel ke Hosting
+
+on:
+  push:
+    branches:
+      - main  # Sesuaikan dengan branch utama
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Upload via FTP
+        uses: SamKirkland/FTP-Deploy-Action@4.3.0
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir : ./
+          server-dir: /domains/aimanyusuf.me/laravel/ # Sesuaikan dengan folder hosting
